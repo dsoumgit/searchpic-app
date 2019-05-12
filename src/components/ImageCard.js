@@ -6,6 +6,7 @@
  */
 
 import React, { Component } from 'react';
+import { Button, Header, Image, Modal } from 'semantic-ui-react'
 
 class ImageCard extends Component {
 
@@ -19,30 +20,31 @@ class ImageCard extends Component {
 
     componentDidMount() {
         // add an event till it is sucessfully loaded and pass the callback method
-        this.imageRef.current.addEventListener('load', this.setSpans); 
+        this.imageRef.current.addEventListener('load', this.setSpans);
     }
 
     setSpans = () => {
-        console.log(this.imageRef.current.clientHeight); 
         // get height
         const height = this.imageRef.current.clientHeight;
         // calculate the span for each image
         const spans = Math.ceil(height / 10);   // 10 is the same as the one in ImageList.css 
 
-        this.setState({ spans }); 
+        this.setState({ spans });
     }
+
 
     render() {
 
         // destructoring 
-        const { description, urls } = this.props.image; 
+        const { description, urls } = this.props.image;
 
-        return(
-            <div style={{ gridRowEnd: `span ${this.state.spans}`}}>
-                <img 
+        return (
+            <div style={{ gridRowEnd: `span ${this.state.spans}` }}>
+                <img
                     ref={this.imageRef}
                     alt={description}
                     src={urls.regular}
+                    onClick={this.imageHandler}
                 />
             </div>
         )

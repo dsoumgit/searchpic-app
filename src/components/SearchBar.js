@@ -41,6 +41,20 @@ class SearchBar extends Component {
         this.props.onSubmitInput(this.state.term);
   }        
 
+
+  onSearch = (event) => {
+    this.setState({
+        term: event.target.value
+    })
+
+    clearTimeout(this.timeout);
+
+    this.timeout = setTimeout(() => {
+        this.props.onSubmitInput(this.state.term);
+    }, 500);
+  }
+
+
     // event object is being passed automatically 
     // we can also use an arrow function inside the onChange event since we only have one line of code.
     //  onChange={(event) => event.target.value}
@@ -57,7 +71,7 @@ class SearchBar extends Component {
                         <input 
                             type="text" 
                             placeholder="Enter a name and press Enter"
-                            onChange={(e) => this.setState({ term: e.target.value })}
+                            onChange={this.onSearch}
                         ></input>    
                     </div>
                 </form>
